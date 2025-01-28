@@ -4,6 +4,8 @@ using namespace std;
 
 void matrixMultiply_MPI(int N, const floatType* A, const floatType* B, floatType* C, int* flags, int flagCount)
 {
+    MPI_Init(&flagCount, &flags)
+
     memset(C, 0, sizeof(floatType)*N*N);
     const int block = 256; // best size out of 64, 128, 256 and 512
 
@@ -101,4 +103,6 @@ void matrixMultiply_MPI(int N, const floatType* A, const floatType* B, floatType
               0, MPI_COMM_WORLD, &request);
 	MPI_Wait(&request, MPI_STATUS_IGNORE);
     }
+
+    MPI_Finalize()
 }
